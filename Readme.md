@@ -15,4 +15,8 @@ The script is like
 
 This folder contain the scripts for database, currently, it contain a script to install mariadb on CentOS 7
 
+## Linux
+
+The linux folder contain scripts for server, include secure and loign via ssh.
+
 
