@@ -69,7 +69,7 @@ done
 
 echo "Create tar file from backup folder"
 cd ..
-tar czf $now.tar.gz $now
+tar czf $today_$now.tar.gz $now
 
 echo "Remove backup folder"
 rm -rf $now
