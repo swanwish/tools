@@ -20,7 +20,7 @@ fi
 echo "Check path $check_path and keep files in $keep_days days"
 
 echo "Remove files $keep_days days ago"
-find $check_path -type f -mtime +"$keep_days"d -delete
+find $check_path -type f -mtime $keep_days -delete
 
 echo "Remove empty directory"
 find $check_path -type d -empty -delete
