@@ -49,6 +49,13 @@ backup() {
 assertNotNull "db_user" $db_user
 assertNotNull "dbs" $dbs
 
+if [ -z "$structureonly" ]; then
+    dataflag=""
+else
+    echo "Backup db structure only"
+    dataflag="--no-data"
+fi
+
 [[ -d $db_backup_path ]] || mkdir -p $db_backup_path
 cd $db_backup_path
 
