@@ -2,14 +2,14 @@
 
 # Check configuration file
 if [ -z "$1" ]; then
-	echo "  Please pass the configuration file
+  echo "  Please pass the configuration file
   Usage: restore_db.sh db.conf
   You should export db_name, db_pwd, db_backup_path, dbs
   Note: The dbs like \"db_a,db_b,db_c\"
   "
-	exit
+  exit
 else
-	confFileName=$1
+  confFileName=$1
 fi
 
 if [ -f $confFileName ]; then
@@ -17,10 +17,10 @@ if [ -f $confFileName ]; then
 #elif [ -f $bin_path/$confFileName ]; then
 #  . $bin_path/$confFileName
 else
-	echo "Failed to find file $confFileName"
-	echo 'Please create $confFileName file'
-	echo 'Export db_user and db_pwd and dbs in the file'
-	exit
+  echo "Failed to find file $confFileName"
+  echo 'Please create $confFileName file'
+  echo 'Export db_user and db_pwd and dbs in the file'
+  exit
 fi
 
 assertNotNull() {
@@ -35,18 +35,19 @@ assertNotNull() {
 }
 
 restore() {
-	if [ -z "$1" ]
-  	then
-    	echo "-Parameter database is empty, please input the db name to backup"
-  	else
-		if [ ! -f $1.sql ]
-		then
-			echo "File $1.sql not exists"
-		else
-  			echo "Restore database $1"
-			mysql -u$db_user -p$db_pwd $1 < $1.sql
-		fi
-  	fi
+  if [ -z "$1" ]
+    then
+      echo "-Parameter database is empty, please input the db name to backup"
+    else
+    if [ ! -f $1.sql ]
+    then
+      echo "File $1.sql not exists"
+    else
+      echo "Restore database $1 from `date +"%Y-%m-%d %H:%M:%S"`"
+      mysql -u$db_user -p$db_pwd $1 < $1.sql
+      echo "End Restore database $1 at `date +"%Y-%m-%d %H:%M:%S"`"
+    fi
+    fi
 }
 
 assertNotNull "db_user" $db_user

@@ -5,14 +5,14 @@ db_backup_path=~/db_backup
 
 # Check configuration file
 if [ -z "$1" ]; then
-	echo "  Please pass the configuration file
+  echo "  Please pass the configuration file
   Usage: backup_db.sh db.conf
   You should export db_name, db_pwd, db_backup_path, dbs
   Note: The dbs like \"db_a,db_b,db_c\"
   "
-	exit
+  exit
 else
-	confFileName=$1
+  confFileName=$1
 fi
 
 if [ -f $confFileName ]; then
@@ -20,10 +20,10 @@ if [ -f $confFileName ]; then
 #elif [ -f $bin_path/$confFileName ]; then
 #  . $bin_path/$confFileName
 else
-	echo "Failed to find file $confFileName"
-	echo 'Please create $confFileName file'
-	echo 'Export db_user and db_pwd and db_backup_path in the file'
-	exit
+  echo "Failed to find file $confFileName"
+  echo 'Please create $confFileName file'
+  echo 'Export db_user and db_pwd and db_backup_path in the file'
+  exit
 fi
 
 assertNotNull() {
@@ -38,11 +38,12 @@ assertNotNull() {
 }
 
 backup() {
-	if [ -z "$1" ]; then
+  if [ -z "$1" ]; then
     echo "-Parameter database is empty, please input the db name to backup"
   else
-    echo "Backup database $1"
+    echo "Backup database $1 from `date +"%Y-%m-%d %H:%M:%S"`"
     mysqldump -u$db_user -p$db_pwd $1 $dataflag $ignoreflag | grep -v 'SQL SECURITY DEFINER' > $1.sql
+    echo "End backup database $1 at `date +"%Y-%m-%d %H:%M:%S"`"
   fi
 }
 
