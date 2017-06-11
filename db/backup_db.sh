@@ -73,7 +73,6 @@ ignoretables=$(echo $ignoretables | tr ",", "\n")
 for ignoretable in $ignoretables; do
   ignoreflag+=" --ignore-table=$ignoretable"
 done
-echo $ignoreflag
 
 dbs=$(echo $dbs | tr ",", "\n")
 
