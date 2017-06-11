@@ -42,7 +42,7 @@ backup() {
     echo "-Parameter database is empty, please input the db name to backup"
   else
     echo "Backup database $1"
-    mysqldump -u$db_user -p$db_pwd $1 | grep -v 'SQL SECURITY DEFINER' > $1.sql
+    mysqldump -u$db_user -p$db_pwd $1 $dataflag $ignoreflag | grep -v 'SQL SECURITY DEFINER' > $1.sql
   fi
 }
 
@@ -67,6 +67,13 @@ now=`date +"%H%M%S"`
 echo Create directory $now
 [[ -d $now ]] || mkdir $now
 cd $now
+
+ignoreflag=''
+ignoretables=$(echo $ignoretables | tr ",", "\n")
+for ignoretable in $ignoretables; do
+  ignoreflag+=" --ignore-table=$ignoretable"
+done
+echo $ignoreflag
 
 dbs=$(echo $dbs | tr ",", "\n")
 
