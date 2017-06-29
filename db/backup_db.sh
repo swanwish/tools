@@ -42,7 +42,7 @@ backup() {
     echo "-Parameter database is empty, please input the db name to backup"
   else
     echo "Backup database $1 from `date +"%Y-%m-%d %H:%M:%S"`"
-    mysqldump -u$db_user -p$db_pwd $1 $dataflag $ignoreflag | grep -v 'SQL SECURITY DEFINER' > $1.sql
+    mysqldump -u$db_user -p$db_pwd $1 $dataflag $2 | grep -v 'SQL SECURITY DEFINER' > $1.sql
     echo "End backup database $1 at `date +"%Y-%m-%d %H:%M:%S"`"
   fi
 }
@@ -69,21 +69,22 @@ echo Create directory $now
 [[ -d $now ]] || mkdir $now
 cd $now
 
-ignoreflag=''
-ignoretables=$(echo $ignoretables | tr ",", "\n")
-for ignoretable in $ignoretables; do
-  ignoreflag+=" --ignore-table=$ignoretable"
-done
-
 dbs=$(echo $dbs | tr ",", "\n")
 
 for db in $dbs; do
-  backup $db
+  ignoreflag=''
+  ignoretables=$(echo $ignoretables | tr ",", "\n")
+  for ignoretable in $ignoretables; do
+    ignoreflag+=" --ignore-table=$db.$ignoretable"
+  done
+
+  backup $db $ignoreflag
 done
 
-echo "Create tar file from backup folder"
+echo "Create tar file from backup folder at `date +"%Y-%m-%d %H:%M:%S"`"
 cd ..
 tar czf $today\_$now.tar.gz $now
+echo "Finishing create tar file at `date +"%Y-%m-%d %H:%M:%S"`"
 
 echo "Remove backup folder"
 rm -rf $now
