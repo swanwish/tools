@@ -17,3 +17,15 @@ When we enable login to remote server via rsa public key, the folder .ssh and au
 # Clean old files
 
 This tool can be used for delete old files, it can accept two parameters, the first one is the path to check, the second one is the days to keep
+
+## Restart Service
+
+Input the service name, and the path of the server, and the parameters for the service.
+
+My golang app use this script to restart, the usage is like below:
+
+for example, I will restart `fileservice`, which is located in `~/servers` folder, and the parameter is `-port=8080`
+
+`
+restart_service.sh fileservice ~/servers -port=8080
+`
