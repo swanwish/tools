@@ -23,3 +23,14 @@ memcached-tool localhost stats
 # We will get some output like below
 version       1.5.7
 ```
+
+## Setting for the memcached on CentOS
+
+```
+# File
+/etc/sysconfig/memcached
+
+# Change CACHESIZE to 2048M
+CACHESIZE="2048"
+
+```
