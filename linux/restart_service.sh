@@ -55,6 +55,11 @@ if [ -f $ZIP_FILE_NAME ]
       rm $ZIP_FILE_NAME
 fi
 
+LOG_DIR=$SERVICE_DIR/logs
+if [ ! -d $LOG_DIR ]; then
+    mkdir -p $LOG_DIR
+fi
+
 echo Start service $SERVICE_NAME
 cd $SERVICE_DIR/$SERVICE_NAME
-nohup ./$SERVICE_NAME $SERVICE_PARAM $4 $5>> ../log_$SERVICE_NAME.log 2>&1 &
+nohup ./$SERVICE_NAME $SERVICE_PARAM $4 $5>> $LOG_DIR/log_$SERVICE_NAME.log 2>&1 &
