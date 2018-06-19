@@ -57,4 +57,4 @@ fi
 
 echo Start service $SERVICE_NAME
 cd $SERVICE_DIR/$SERVICE_NAME
-nohup ./$SERVICE_NAME $SERVICE_PARAM $4 $5>> log_$SERVICE_NAME.log 2>&1 &
+nohup ./$SERVICE_NAME $SERVICE_PARAM $4 $5>> ../log_$SERVICE_NAME.log 2>&1 &
