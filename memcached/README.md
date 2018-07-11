@@ -1,17 +1,17 @@
-# Upgrade memcached to 1.5.7
+# Upgrade memcached to 1.5.9
 
 ```
 # Install memcache
 yum install memcached
 
 # Download this binary
-wget https://github.com/swanwish/tools/raw/master/memcached/memcached-1.5.7-centos7.tar.gz
+wget https://github.com/swanwish/tools/raw/master/memcached/memcached-1.5.9-centos7.tar.gz
 
 # Backup old memcached file
-sudo mv /usr/bin/memcached /usr/bin/memcached.1.4.15
+sudo mv /usr/bin/memcached /usr/bin/memcached_before_1.5.9
 
 # Extract the new memcache file to `/usr/bin` folder
-sudo tar -C /usr/bin -xzf memcached-1.5.7-centos7.tar.gz
+sudo tar -C /usr/bin -xzf memcached-1.5.9-centos7.tar.gz
 
 # Enable and start memcached service
 sudo systemctl enable memcached
@@ -21,7 +21,7 @@ sudo systemctl start memcached
 memcached-tool localhost stats
 
 # We will get some output like below
-version       1.5.7
+version       1.5.9
 ```
 
 ## Setting for the memcached on CentOS
