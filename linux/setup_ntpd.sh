@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$EUID" -ne 0 ]; then
+    echo 'Please run the script as root'
+    exit
+fi
+
 DEFAULT_NTP_CONF='# For more information about this file, see the man pages
 # ntp.conf(5), ntp_acc(5), ntp_auth(5), ntp_clock(5), ntp_misc(5), ntp_mon(5).
 
@@ -64,7 +69,7 @@ server ntp7.aliyun.com iburst'
 
 function setupNtpd {
     echo 'Setup ntpd'
-    echo $DEFAULT_NTP_CONF > /etc/ntp.conf
+    echo "$DEFAULT_NTP_CONF" > /etc/ntp.conf
 
     systemctl enable ntpd
     systemctl restart ntpd
