@@ -30,10 +30,11 @@ function install {
 }
 
 function help {
-    echo The renew_cert.sh is installed, you can add a crontab task to call it.
-    echo This is the sample crontab script
-    echo 0 0,12 * * * /usr/local/bin/renew_cert.sh
-    echo Done
+    echo 'The renew_cert.sh is installed, you can add a crontab task to run it.
+
+This is the sample crontab script:
+0 0,12 * * * /usr/local/bin/renew_cert.sh
+'
 }
 
 install
