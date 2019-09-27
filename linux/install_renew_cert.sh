@@ -26,6 +26,14 @@ function install {
     else
         echo The file $DEST_FILE already exists
     fi
+    help
+}
+
+function help {
+    echo The renew_cert.sh is installed, you can add a crontab task to call it.
+    echo This is the sample crontab script
+    echo 0 0,12 * * * /usr/local/bin/renew_cert.sh
+    echo Done
 }
 
 install
