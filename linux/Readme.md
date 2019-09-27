@@ -29,3 +29,9 @@ for example, I will restart `fileservice`, which is located in `~/servers` folde
 `
 restart_service.sh fileservice ~/servers -port=8080
 `
+
+## Install command to renew letsencrpt certificates
+
+Login as root account, run the following command:
+
+`curl https://raw.githubusercontent.com/swanwish/tools/master/linux/install_renew_cert.sh | bash`
