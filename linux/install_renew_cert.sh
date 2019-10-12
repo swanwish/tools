@@ -21,7 +21,7 @@ function install {
     if [ ! -f $DEST_FILE ]
     then
         echo Install $DEST_FILE
-        echo $SCRIPTS > $DEST_FILE
+        echo "$SCRIPTS" > $DEST_FILE
         chmod +x $DEST_FILE
     else
         echo The file $DEST_FILE already exists
