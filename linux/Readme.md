@@ -35,3 +35,9 @@ restart_service.sh fileservice ~/servers -port=8080
 Login as root account, run the following command:
 
 `curl https://raw.githubusercontent.com/swanwish/tools/master/linux/install_renew_cert.sh | bash`
+
+## Install lsyncd on CentOS 8
+
+Login as root account, run the following command:
+
+`curl https://raw.githubusercontent.com/swanwish/tools/master/linux/install_lsyncd_centos8.sh | bash`
