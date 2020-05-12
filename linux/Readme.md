@@ -41,3 +41,7 @@ Login as root account, run the following command:
 Login as root account, run the following command:
 
 `curl https://raw.githubusercontent.com/swanwish/tools/master/linux/install_lsyncd_centos8.sh | bash`
+
+## Add FTP User
+
+`curl https://raw.githubusercontent.com/swanwish/tools/master/linux/add_ftpuser.sh | bash`
