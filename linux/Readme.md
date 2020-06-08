@@ -44,4 +44,4 @@ Login as root account, run the following command:
 
 ## Add FTP User
 
-`curl https://raw.githubusercontent.com/swanwish/tools/master/linux/add_ftpuser.sh | bash`
+`curl -sS https://raw.githubusercontent.com/swanwish/tools/master/linux/add_ftpuser.sh | bash -s <ftpusername>`

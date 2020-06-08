@@ -14,7 +14,17 @@ fi
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
-nohup certbot renew >> /var/log/certbot_renew.log 2>&1 &'
+CERTBOT_EXEC=certbot
+if [[ ! -x $CERTBOT_EXEC ]]; then
+    if [[ -x /usr/local/bin/certbot-auto ]]; then
+        echo "Use certbot-auto"
+        CERTBOT_EXEC=/usr/local/bin/certbot-auto
+    else
+        echo "$CERTBOT_EXEC not exists"
+    fi
+fi
+
+nohup $CERTBOT_EXEC renew >> /var/log/certbot_renew.log 2>&1 &'
 
 DEST_FILE=/usr/local/bin/renew_cert.sh
 
