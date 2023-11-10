@@ -19,7 +19,7 @@ if [ -f $confFileName ]; then
 else
   echo "Failed to find file $confFileName"
   echo 'Please create $confFileName file'
-  echo 'Export db_user and db_pwd and dbs in the file'
+  echo 'Export db_login_path and dbs in the file'
   exit
 fi
 
@@ -44,13 +44,13 @@ restore() {
       echo "File $1.sql not exists"
     else
       echo "Restore database $1 from `date +"%Y-%m-%d %H:%M:%S"`"
-      mysql -u$db_user -p$db_pwd $1 < $1.sql
+      mysql --login-path=$db_login_path $1 < $1.sql
       echo "End Restore database $1 at `date +"%Y-%m-%d %H:%M:%S"`"
     fi
     fi
 }
 
-assertNotNull "db_user" $db_user
+assertNotNull "db_login_path" $db_login_path
 assertNotNull "dbs" $dbs
 
 dbs=$(echo $dbs | tr ",", "\n")

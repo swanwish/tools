@@ -5,14 +5,14 @@ db_backup_path=~/db_backup
 
 # Check configuration file
 if [ -z "$1" ]; then
-  echo "  Please pass the configuration file
+	echo "  Please pass the configuration file
   Usage: backup_db.sh db.conf
-  You should export db_name, db_pwd, db_backup_path, dbs
+  You should export db_name, db_login_path, db_backup_path, dbs
   Note: The dbs like \"db_a,db_b,db_c\"
   "
-  exit
+	exit
 else
-  confFileName=$1
+	confFileName=$1
 fi
 
 if [ -f $confFileName ]; then
@@ -20,10 +20,10 @@ if [ -f $confFileName ]; then
 #elif [ -f $bin_path/$confFileName ]; then
 #  . $bin_path/$confFileName
 else
-  echo "Failed to find file $confFileName"
-  echo 'Please create $confFileName file'
-  echo 'Export db_user and db_pwd and db_backup_path in the file'
-  exit
+	echo "Failed to find file $confFileName"
+	echo 'Please create $confFileName file'
+	echo 'Export db_login_path and db_backup_path in the file'
+	exit
 fi
 
 assertNotNull() {
@@ -38,23 +38,22 @@ assertNotNull() {
 }
 
 backup() {
-  if [ -z "$1" ]; then
+	if [ -z "$1" ]; then
     echo "-Parameter database is empty, please input the db name to backup"
   else
-    echo "Backup database $1 from `date +"%Y-%m-%d %H:%M:%S"`"
-    mysqldump -u$db_user -p$db_pwd $1 $dataflag $2 | grep -v 'SQL SECURITY DEFINER' > $1.sql
-    echo "End backup database $1 at `date +"%Y-%m-%d %H:%M:%S"`"
+    echo "Backup database $1"
+    mysqldump --login-path=$db_login_path $dataflag $1 | grep -v 'SQL SECURITY DEFINER' > $1.sql
   fi
 }
 
-assertNotNull "db_user" $db_user
+assertNotNull "db_login_path" $db_login_path
 assertNotNull "dbs" $dbs
 
 if [ -z "$structureonly" ]; then
-    dataflag=""
+    dataflag="--default-character-set=utf8mb4 --no-tablespaces"
 else
     echo "Backup db structure only"
-    dataflag="--no-data"
+    dataflag="--default-character-set=utf8mb4 --no-tablespaces --no-data"
 fi
 
 [[ -d $db_backup_path ]] || mkdir -p $db_backup_path
@@ -72,19 +71,13 @@ cd $now
 dbs=$(echo $dbs | tr ",", "\n")
 
 for db in $dbs; do
-  ignoreflag=''
-  ignoretables=$(echo $ignoretables | tr ",", "\n")
-  for ignoretable in $ignoretables; do
-    ignoreflag+=" --ignore-table=$db.$ignoretable"
-  done
-
-  backup $db $ignoreflag
+  backup $db
 done
 
-echo "Create tar file from backup folder at `date +"%Y-%m-%d %H:%M:%S"`"
+echo "Create tar file from backup folder"
 cd ..
 tar czf $today\_$now.tar.gz $now
-echo "Finishing create tar file at `date +"%Y-%m-%d %H:%M:%S"`"
 
 echo "Remove backup folder"
 rm -rf $now
+

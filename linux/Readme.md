@@ -65,3 +65,11 @@ We can run this command to generate this file.
 ```bash
 curl -sS https://raw.githubusercontent.com/swanwish/tools/master/linux/mksshconfig.sh | bash
 ```
+
+## Stop service
+
+Sometimes, the service will start multiple process, such as druid, it will start a lot of servce, we can stop the service with the `stop_service.sh` to top them.
+
+```bash
+stop_service.sh druid
+```
