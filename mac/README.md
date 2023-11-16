@@ -33,3 +33,9 @@ sudo curl https://raw.githubusercontent.com/swanwish/tools/master/mac/simpath.sh
 sudo chmod +x /usr/local/bin/simpath.sh
 touch ~/simpath.conf
 ```
+
+## Install tool to convert_audio.sh
+
+```
+sudo curl https://github.com/swanwish/tools/raw/master/mac/install_convert_audio.sh | bash
+```
