@@ -25,6 +25,8 @@ download_file() {
 extract_file() {
     echo "Extracting convert_audio.tar.gz to $TARGET_DIR..."
     tar -xzf "$TMP_DOWNLOAD_PATH" -C "$TARGET_DIR"
+    xattr -d com.apple.quarantine "$TARGET_DIR/convert_audio.sh"
+    xattr -d com.apple.quarantine "$TARGET_DIR/ffmpeg"
 }
 
 # Main script execution
