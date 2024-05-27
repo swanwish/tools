@@ -23,7 +23,7 @@ download_file() {
 
 # Function to remove the quarantine attribute if it exists
 remove_quarantine_attribute() {
-    local file="\$1"
+    local file="$1"
     local attr="com.apple.quarantine"
 
     if xattr -p "$attr" "$file" &>/dev/null; then
