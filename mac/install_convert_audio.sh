@@ -18,7 +18,7 @@ check_root() {
 # Function to download the file
 download_file() {
     echo "Downloading convert_audio.tar.gz..."
-    curl -L "$DOWNLOAD_URL" -o "$TMP_DOWNLOAD_PATH"
+    curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" -L "$DOWNLOAD_URL" -o "$TMP_DOWNLOAD_PATH"
 }
 
 # Function to remove the quarantine attribute if it exists
@@ -29,8 +29,6 @@ remove_quarantine_attribute() {
     if xattr -p "$attr" "$file" &>/dev/null; then
         xattr -d "$attr" "$file"
         echo "Removed $attr from $file"
-    else
-        echo "$attr not found on $file"
     fi
 }
 

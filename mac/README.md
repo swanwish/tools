@@ -37,5 +37,5 @@ touch ~/simpath.conf
 ## Install tool to convert_audio.sh
 
 ```shell
-curl https://raw.githubusercontent.com/swanwish/tools/master/mac/install_convert_audio.sh | sudo bash
+curl -H "Cache-Control: no-cache" -H "Pragma: no-cache" https://raw.githubusercontent.com/swanwish/tools/master/mac/install_convert_audio.sh | sudo bash
 ```
