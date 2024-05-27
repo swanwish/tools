@@ -21,12 +21,25 @@ download_file() {
     curl -L "$DOWNLOAD_URL" -o "$TMP_DOWNLOAD_PATH"
 }
 
+# Function to remove the quarantine attribute if it exists
+remove_quarantine_attribute() {
+    local file="\$1"
+    local attr="com.apple.quarantine"
+
+    if xattr -p "$attr" "$file" &>/dev/null; then
+        xattr -d "$attr" "$file"
+        echo "Removed $attr from $file"
+    else
+        echo "$attr not found on $file"
+    fi
+}
+
 # Function to extract the file
 extract_file() {
     echo "Extracting convert_audio.tar.gz to $TARGET_DIR..."
     tar -xzf "$TMP_DOWNLOAD_PATH" -C "$TARGET_DIR"
-    xattr -d com.apple.quarantine "$TARGET_DIR/convert_audio.sh"
-    xattr -d com.apple.quarantine "$TARGET_DIR/ffmpeg"
+    remove_quarantine_attribute "$TARGET_DIR/convert_audio.sh"
+    remove_quarantine_attribute "$TARGET_DIR/ffmpeg"
 }
 
 # Main script execution
