@@ -16,9 +16,9 @@ source_dir=$(realpath "$source_dir")
 target_dir=$(realpath "$target_dir")
 
 # Use find to execute commands directly, avoiding subshell and issues with filenames
-for file in $(find "${source_dir}" -type f \( -iname "*.mp3" -o -iname "*.wav" -o -iname "*.aac" -o -iname "*.flac" -o -iname "*.m4a" \)); do
+find "${source_dir}" -type f \( -iname "*.mp3" -o -iname "*.wav" -o -iname "*.aac" -o -iname "*.flac" -o -iname "*.m4a" \) | while IFS= read -r file; do
   # Compute the relative path from the source directory
-  relative_path="${file#$source_dir/}"
+  relative_path="${file#"$source_dir"/}"
   dir=$(dirname "$relative_path")
   src=$(basename "$file")
   base="${src%.*}"
